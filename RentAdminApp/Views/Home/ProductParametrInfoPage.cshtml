@@ -1,0 +1,237 @@
+﻿@model List<FullProductParametrInfo>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добро пожаловать в ваше приложение</title>
+    <style>
+        /* Общие стили для всей страницы */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        /* Стили для навигационной панели */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+            .navbar a {
+                color: white;
+                text-decoration: none;
+                padding: 10px 20px;
+                margin-right: 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+                .navbar a:hover {
+                    background-color: #555;
+                }
+
+        /* Стили для поля поиска */
+        .search-form {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .search-input {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .search-button {
+            background-color: #6c7ae0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .search-button:hover {
+                background-color: #4a5abf;
+            }
+
+        /* Стили для карточек с продуктами */
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Добавляем тень */
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            align-items: flex-start;
+        }
+
+        .product-card-image {
+            flex: 0 0 40%; /* Увеличиваем ширину картинки */
+            max-width: 200px; /* Увеличиваем максимальную ширину картинки */
+            margin-right: 20px;
+        }
+
+        .product-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .product-image {
+            margin-right: 20px;
+        }
+
+            .product-image img {
+                max-width: 200px;
+                height: auto;
+            }
+
+        .product-description {
+            text-align: center;
+        }
+
+            .product-description h3 {
+                margin-bottom: 10px;
+            }
+
+            .product-description p {
+                margin-bottom: 20px;
+            }
+
+=
+        .product-card-image {
+            flex: 0 0 auto; /* Зафиксированная ширина для изображения */
+            margin-right: 20px; /* Отступ между изображением и текстом */
+        }
+
+            .product-card-image img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px; /* Увеличиваем радиус скругления углов */
+            }
+
+        .product-card-details {
+            flex: 1;
+        }
+
+        .product-card-header {
+            background-color: dimgray; /* Изменяем цвет фона заголовка */
+            color: white;
+            padding: 12px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 10px; /* Увеличиваем отступ снизу */
+        }
+
+        .product-card-body {
+            padding: 20px;
+        }
+
+
+        .product-card-footer {
+            display: flex;
+            justify-content: flex-end; /* Располагаем кнопки справа */
+            align-items: center;
+            padding: 12px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Стили для кнопок "Редактировать" и "Удалить" */
+        .edit-button, .delete-button {
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .edit-button:hover, .delete-button:hover {
+                color: #4a5abf; /* Изменяем цвет при наведении */
+            }
+
+        /* Стили для заголовка */
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/ProductParametrInfoPage">Продукты</a>
+        <a href="/LocationsPage">Локации</a>
+        <a href="/ClientsPage">Клиенты</a>
+    </nav>
+    <br />
+    <h1>Управление продуктами</h1>
+    <div class="search-form">
+        <form method="get" action="@Url.Action("ProductParametrInfoPage")">
+            <input type="text" name="search" placeholder="Поиск..." class="search-input">
+            <button type="submit" class="search-button">Найти</button>
+        </form>
+    </div>
+    <br />
+    <main>
+        <div class="product-grid">
+            @foreach (var user in Model)
+            {
+                <div class="product-card">
+                    <div class="product-card-image">
+                        <img src="@user.photo!.FirstOrDefault()?.photopath" alt="Product Photo">
+                    </div>
+                    <div class="product-card-details">
+                        <div class="product-card-header">
+                            <h2>@user.product?.NameProduct</h2> <!-- Изменяем тег заголовка и стиль заголовка -->
+                        </div>
+                        <div class="product-card-body">
+                            <p><strong>Описание:</strong> @user.product?.Descriptions</p>
+                            <p><strong>Категория:</strong> @user.category?.CategoryName</p>
+                            <p><strong>Город:</strong> @user.city?.Name</p>
+                            <p><strong>Почта клиента:</strong> @user.сlient?.Email</p>
+                            <p><strong>Список параметров и атрибутов:</strong></p>
+                            <ul>
+                                @foreach (var param in user.parameter!)
+                                {
+                                    <li>@param.ParametrName - @user.attributeParams!.FirstOrDefault(a => a.ProductParameterId == user.productparametr!.FirstOrDefault(pp => pp.Parameter_Id == param.IdParametrs)?.IdProductParameter)?.AtributsParamsName</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+               
+                    <div class="product-card-footer">
+                        <a href="@Url.Action("EditProduct", "ProductParametrInfoPage", new { id = user.product?.IdProduct })" class="edit-button">Редактировать</a>
+                        <form asp-action="DeleteProduct" method="post">
+                            <input type="hidden" name="ProductParametrInfo" value="@user.product?.IdProduct" />
+                            <button type="submit" class="delete-button">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </main>
+</body>
+</html>

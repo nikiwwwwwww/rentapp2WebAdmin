@@ -1,0 +1,56 @@
+﻿@model RentAdminApp.Models.Region
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Добавить новый регион</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+
+    <div class="container">
+        <h1 class="text-center mb-4">Добавить новый регион</h1>
+        <div class="row align-items-center mb-3">
+            <div class="col-auto">
+                <button type="button" class="btn btn-primary" onclick="redirectBack()">&lt; Назад</button>
+            </div>
+            <div class="col">
+                <form asp-action="CreateRegion" method="post" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">Название</label>
+                        <input asp-for="Name" class="form-control" id="name">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="countryId" class="form-label">Страна</label>
+                        <select asp-for="countryId" class="form-select" id="countryId">
+                            @foreach (var country in ViewBag.Capacities as List<Сountry> ?? Enumerable.Empty<Сountry>())
+                            {
+                                <option value="@country.IdСountry">@country.NameCountry</option>
+                            }
+                        </select>
+                        <span asp-validation-for="countryId" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function redirectBack() {
+            window.location.href = "/LocationsPage"; // Замените "/LocationsPage" на путь к предыдущей странице
+        }
+    </script>
+</body>
+</html>

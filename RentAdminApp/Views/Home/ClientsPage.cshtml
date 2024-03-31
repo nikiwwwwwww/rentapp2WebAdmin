@@ -1,0 +1,146 @@
+﻿@model List<FullClientInfo>
+
+@{
+    Layout = null;
+}
+
+<style>
+
+    /* Стили для навигационной панели */
+    .navbar {
+        background-color: #333;
+        overflow: hidden;
+        padding: 10px;
+    }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin-right: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+            .navbar a:hover {
+                background-color: #555;
+            }
+
+    /* Стили для поля поиска */
+    .search-form {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .search-input {
+        width: 300px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+        font-size: 16px;
+    }
+
+    .search-button {
+        background-color: #6c7ae0;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .search-button:hover {
+            background-color: #4a5abf;
+        }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        margin: 20px;
+    }
+
+    .card {
+        width: 250px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-header {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-content p {
+        margin: 5px 0;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+    }
+
+    .btn-primary {
+        background-color: #6c7ae0;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #4a5abf;
+        }
+</style>
+<nav class="navbar">
+    <a href="/ProductParametrInfoPage">Продукты</a>
+    <a href="/LocationsPage">Локации</a>
+    <a href="/ClientsPage">Клиенты</a>
+</nav>
+<br />
+<div class="search-form">
+        <form method="get" action="@Url.Action("ClientsPage")">
+            <input type="text" name="search" placeholder="Поиск..." class="search-input">
+            <button type="submit" class="search-button">Найти</button>
+        </form>
+    </div>
+<br />
+<div class="card-container">
+    @foreach (var clientInfo in Model)
+    {
+        <div class="card">
+            <div class="card-header">
+                @clientInfo.client!.FirstName @clientInfo.client.LastName
+            </div>
+            <div class="card-content">
+                <p><strong>Id:</strong> @clientInfo.client.IdClient</p>
+                <p><strong>День рождения:</strong> @clientInfo.client.BirthDate</p>
+                <p><strong>Почта:</strong> @clientInfo.client.Email</p>
+                <p><strong>Тип клиента:</strong> @clientInfo.client.TypeClient</p>
+                <!-- Add more details as needed -->
+            </div>
+            <div class="btn-container">
+                <a href="@Url.Action("EditClient", new { id = clientInfo.client.IdClient })" class="btn-primary">Редактировать</a>
+                <form asp-action="DeleteClient" asp-route-id="@clientInfo.client.IdClient" method="post">
+                    <button type="submit" class="btn-primary">Удалить</button>
+                </form>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,41 @@
+﻿@model RentAdminApp.Models.Сountry
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Редактировать страну</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+
+    <div class="container">
+        <h1 class="text-center mb-4">Редактировать страну</h1>
+        <div class="row align-items-center mb-3">
+            <div class="col">
+                <form asp-action="EditCountry" method="post" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="id" class="form-label">Id</label>
+                        <input asp-for="IdСountry" class="form-control" id="id" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">Название</label>
+                        <input asp-for="NameCountry" class="form-control" id="name">
+                    </div>
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

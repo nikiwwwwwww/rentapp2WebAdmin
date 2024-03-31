@@ -1,0 +1,14 @@
+﻿@* EditClient.cshtml *@
+@*@model FullClientInfo
+
+<h1>Редактировать клиента</h1>
+
+<form asp-action="EditClient" method="post">
+    <!-- Форма для редактирования данных о клиенте -->
+    <input asp-for="client.IdClient" type="hidden" />
+
+    <partial name="_BookingSelect" for="@Model.booking" />
+    <partial name="_ProductSelect" for="@Model.product" />
+
+    <button type="submit">Сохранить</button>
+</form>*@

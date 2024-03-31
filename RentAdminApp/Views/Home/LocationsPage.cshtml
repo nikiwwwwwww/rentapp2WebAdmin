@@ -1,0 +1,245 @@
+﻿@model List<FullLocationInfo>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление местоположениями</title>
+    <style>
+        /* Стили для навигационной панели */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+            .navbar a {
+                color: white;
+                text-decoration: none;
+                padding: 10px 20px;
+                margin-right: 10px;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+
+                .navbar a:hover {
+                    background-color: #555;
+                }
+
+        /* Стили для кнопок */
+        .action-btn {
+            margin-right: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .action-btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .action-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Стили для таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+            vertical-align: top; /* Установка привязки к верху для ячеек */
+
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Стили для поля поиска */
+        .search-form {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .search-input {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .search-button {
+            background-color: #6c7ae0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .search-button:hover {
+                background-color: #4a5abf;
+            }
+    </style>
+</head>
+<body>
+    <!-- Навигационная панель -->
+    <nav class="navbar">
+        <a href="/ProductParametrInfoPage">Продукты</a>
+        <a href="/LocationsPage">Локации</a>
+        <a href="/ClientsPage">Клиенты</a>
+    </nav>
+
+    <h1 style="text-align: center;">Управление местоположениями</h1>
+
+    <div class="container">
+        <!-- Форма поиска -->
+        <div class="search-form">
+            <form method="get" action="@Url.Action("LocationsPage")">
+                <input type="text" name="search" placeholder="Поиск..." class="search-input">
+                <button type="submit" class="search-button">Найти</button>
+            </form>
+        </div>
+        <br />
+        <!-- Таблица с тремя списками местоположений -->
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th><h2>Список стран</h2></th>
+                    <th><h2>Список регионов</h2></th>
+                    <th><h2>Список городов</h2></th>
+                </tr>
+                <tr>
+                    <!-- Список стран -->
+                    <td>
+                        <a href="@Url.Action("CreateCountry")" class="action-btn action-btn-primary">Добавить</a>
+                        <table class="table">
+                            <!-- Заголовки таблицы -->
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Название</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <!-- Тело таблицы -->
+                            <tbody>
+                                @foreach (var mode in Model!)
+                                {
+                                    foreach (var mod in mode.country!)
+                                    {
+                                        <tr>
+                                            <!-- Данные о стране -->
+                                            <td>@mod.IdСountry</td>
+                                            <td>@mod.NameCountry</td>
+                                            <!-- Кнопки для редактирования и удаления страны -->
+                                            <td>
+                                                <a href="@Url.Action("EditCountry", new { id = mod.IdСountry })" class="action-btn action-btn-primary">Редактировать</a>
+                                                <form asp-action="DeleteCountry" asp-route-id="@mod.IdСountry" method="post" style="display: inline;">
+                                                    <button type="submit" class="action-btn action-btn-danger">Удалить</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                    <!-- Список регионов -->
+                    <td>
+                        <a href="@Url.Action("CreateRegion")" class="action-btn action-btn-primary">Добавить</a>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Название</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var regione in Model)
+                                {
+                                    foreach (var region in regione.region!)
+                                    {
+                                        <tr>
+                                            <td>@region.IdRegion</td>
+                                            <td>@region.Name</td>
+                                            <td>
+                                                <a href="@Url.Action("EditRegion", new { id = region.IdRegion })" class="action-btn action-btn-primary">Редактировать</a>
+                                                <form asp-action="DeleteRegion" asp-route-id="@region.IdRegion" method="post" style="display: inline;">
+                                                    <button type="submit" class="action-btn action-btn-danger">Удалить</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                    <!-- Список городов -->
+                    <td>
+                        <a href="@Url.Action("CreateCity")" class="action-btn action-btn-primary">Добавить</a>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Название</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cities in Model)
+                                {
+                                    foreach (var city in cities.city!)
+                                    {
+                                        <tr>
+                                            <td>@city.IdCity</td>
+                                            <td>@city.Name</td>
+                                            <td>
+                                                <a href="@Url.Action("EditCity", new { id = city.IdCity })" class="action-btn action-btn-primary">Редактировать</a>
+                                                <form asp-action="DeleteCity" asp-route-id="@city.IdCity" method="post" style="display: inline;">
+                                                    <button type="submit" class="action-btn action-btn-danger">Удалить</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

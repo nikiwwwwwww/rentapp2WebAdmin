@@ -1,0 +1,12 @@
+﻿@*@model FullClientInfo
+
+<h1>Добавить клиента</h1>
+
+<form asp-action="CreateClient" method="post">
+    <!-- Форма для добавления данных о клиенте -->
+
+    <partial name="_BookingSelect" for="@Model.booking" />
+    <partial name="_ProductSelect" for="@Model.product" />
+
+    <button type="submit">Сохранить</button>
+</form>*@

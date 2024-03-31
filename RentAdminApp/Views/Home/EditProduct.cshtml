@@ -1,0 +1,115 @@
+﻿@model RentAdminApp.Models.FullProductParametrInfo
+@{
+    ViewData["Title"] = "Редактировать продукт";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Редактировать продукт</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+
+    <div class="container">
+        <h1 class="text-center mb-4">Редактировать продукт</h1>
+        <div class="row">
+            <div class="col">
+                <form asp-action="EditProduct" method="post" class="row g-3">
+                    <input type="hidden" asp-for="product.IdProduct" />
+                    <input type="hidden" asp-for="product.CategoryId" />
+                    <input type="hidden" asp-for="product.ClientId" />
+
+                    <div class="col-md-6">
+                        <label for="productName" class="form-label">Название продукта</label>
+                        <input asp-for="product.NameProduct" class="form-control" id="productName">
+                        <span asp-validation-for="product.NameProduct" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="productDescription" class="form-label">Описание продукта</label>
+                        <input asp-for="product.Descriptions" class="form-control" id="productDescription">
+                        <span asp-validation-for="product.Descriptions" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="latitude" class="form-label">Координата 1</label>
+                        <input asp-for="product.Latitude" class="form-control" id="latitude">
+                        <span asp-validation-for="product.Latitude" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="longitude" class="form-label">Координата 2</label>
+                        <input asp-for="product.Longitude" class="form-control" id="longitude">
+                        <span asp-validation-for="product.Longitude" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="status" class="form-label">Статус</label>
+                        <input asp-for="product.Statuss" class="form-check-input" id="status">
+                        <span asp-validation-for="product.Statuss" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="cityId" class="form-label">Выберите город</label>
+                        <select asp-for="city.IdCity" class="form-control" id="cityId">
+                            @foreach (var city in ViewBag.City)
+                            {
+                                <option value="@city.IdCity">@city.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="city.IdCity" class="text-danger"></span>
+                    </div>
+
+                    @for (int i = 0; i < Model.attributeParams!.Count && i < Model.parameter!.Count; i++)
+                    {
+                        <div class="col-md-6">
+                            @if (i < Model.attributeParams.Count && i < Model.parameter.Count)
+                            {
+                                <input type="hidden" asp-for="attributeParams[i].IdAtributsParams" />
+                                <input type="hidden" asp-for="attributeParams[i].ProductParameterId" />
+
+                                <label asp-for="@Model.attributeParams[i].AtributsParamsName" class="form-label">@Model.parameter[i].ParametrName</label>
+                                <input asp-for="@Model.attributeParams[i].AtributsParamsName" class="form-control">
+                            }
+                        </div>
+                    }
+
+                    @for (int i = 0; i < Model.bookingPrices!.Count; i++)
+                    {
+                        <input type="hidden" asp-for="bookingPrices[i].IdBookingPrice" />
+                        <input type="hidden" asp-for="bookingPrices[i].ProductId" />
+
+                        <div class="col-md-4">
+                            <label asp-for="@Model.bookingPrices[i].DailyTime" class="form-label">Время дней</label>
+                            <input asp-for="@Model.bookingPrices[i].DailyTime" class="form-control">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="@Model.bookingPrices[i].HourlyTime" class="form-label">Время часов</label>
+                            <input asp-for="@Model.bookingPrices[i].HourlyTime" class="form-control">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="@Model.bookingPrices[i].Price" class="form-label">Цена</label>
+                            <input asp-for="@Model.bookingPrices[i].Price" class="form-control">
+                        </div>
+                    }
+
+                    <div class="col-12 mt-4">
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

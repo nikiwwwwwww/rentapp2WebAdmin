@@ -1,0 +1,75 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link href="~/css/site.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Административная панель</title>
+    <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        /* Стили для навигационного меню */
+        .navbar {
+            display: flex;
+            /*justify-content: space-between;*/
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            transition: color 0.3s ease;
+            /*margin-left:50%;*/
+            align-content:center;
+        }
+
+        .navbar a:hover {
+            color: #ddd;
+        }
+
+        /* Стили для основного контента */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar" >
+        <a href="/ProductParametrInfoPage">Продукты</a>
+        <a href="/LocationsPage">Локации</a>
+        <a href="/ClientsPage">Клиенты</a>
+    </nav>
+    <div class="container">
+        <div class="welcome">
+            <h1>Добро пожаловать в административную панель</h1>
+            <p>Здесь вы можете управлять содержимым вашего приложения.</p>
+        </div>
+        <!-- Дополнительный контент страницы -->
+    </div>
+</body>
+</html>
