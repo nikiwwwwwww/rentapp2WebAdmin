@@ -29,4 +29,4 @@ jobs:
       - name: Build and Analyze with StyleCop
         run: |
           dotnet build --configuration Release
-          dotnet analyze --configuration Release --verbosity detailed
+          dotnet format --verbosity diagnostic
