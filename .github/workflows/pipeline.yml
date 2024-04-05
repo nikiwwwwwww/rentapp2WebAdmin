@@ -22,10 +22,10 @@ jobs:
         run: dotnet restore
 
       - name: Install StyleCop Analyzers
-        run: dotnet tool install -g StyleCop.Analyz
+        run: dotnet tool install -g StyleCop.Analyzers 
 
       - name: Analyze code with StyleCop
         run: StyleCop.Analyz analyze . --rule-set=stylecop.json --no-cache
 
       - name: Build the project (optional)
-        run: dotnet build
+        run: dotnet build 
