@@ -1,4 +1,4 @@
-name: Check Syntax and Style
+name: Check Syntax and Style with StyleCop Analyz
 
 on:
   push:
@@ -22,10 +22,16 @@ jobs:
         run: dotnet restore
 
       - name: Install StyleCop Analyzers
-        run: dotnet tool install -g StyleCop.Analyz --version 1.1.118
+        run: dotnet tool install -g StyleCop.Analyzers
 
       - name: Analyze code with StyleCop
-        run: StyleCop.Analyz analyze . --rule-set=stylecop.json --no-cache
+        run: |
+          StyleCop.Analyz analyze . --rule-set=stylecop.json --no-cache
+          if [[ $? -ne 0 ]]; then
+            echo "StyleCop analysis failed. Please fix the errors and try again."
+            exit 1
+          fi
 
       - name: Build the project (optional)
-        run: dotnet build 
+        run: dotnet build  # Only if you also want to build
+
