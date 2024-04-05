@@ -29,10 +29,11 @@ jobs:
       - name: Build and Analyze with StyleCop
         run: |
           cd RentAdminApp
-          dotnet build --configuration Release
           dotnet analyze --configuration Release
 
       - name: Check Code Style
         run: |
           cd RentAdminApp
           dotnet style
+          dotnet build --configuration Release
+
