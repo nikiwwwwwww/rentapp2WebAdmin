@@ -1,4 +1,4 @@
-name: Check Syntax
+name: Check Syntax and Style
 
 on:
   push:
@@ -21,8 +21,11 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
 
-      - name: Build the project
-        run: dotnet build
+      - name: Install StyleCop Analyzers
+        run: dotnet tool install -g StyleCop.Analyz
 
-      - name: Check for syntax errors
-        run: dotnet msbuild /t:Clean,Build /p:Configuration=Release /verbosity:minimal
+      - name: Analyze code with StyleCop
+        run: StyleCop.Analyz analyze . --rule-set=stylecop.json --no-cache
+
+      - name: Build the project (optional)
+        run: dotnet build
