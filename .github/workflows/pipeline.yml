@@ -28,7 +28,6 @@ jobs:
      
       - name: Build and Analyze with StyleCop
         run: |
-          cd RentAdminApp
           dotnet analyze --configuration Release
 
       - name: Check Code Style
