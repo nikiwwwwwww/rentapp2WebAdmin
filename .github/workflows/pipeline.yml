@@ -26,10 +26,6 @@ jobs:
           cd RentAdminApp
           dotnet add package StyleCop.Analyzers --version 1.1.118
      
-      - name: Build and Analyze with StyleCop
-        run: |
-          dotnet analyze --configuration Release
-
       - name: Check Code Style
         run: |
           cd RentAdminApp
