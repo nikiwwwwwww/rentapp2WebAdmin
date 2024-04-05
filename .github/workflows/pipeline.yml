@@ -25,15 +25,14 @@ jobs:
         run: |
           cd RentAdminApp
           dotnet add package StyleCop.Analyzers --version 1.1.118
-
-      - name: Analyze code with StyleCop
+     
+      - name: Build and Analyze with StyleCop
         run: |
-          StyleCop.Analyzers analyz . --rule-set=stylecop.json --no-cache
-          if [[ $? -ne 0 ]]; then
-            echo "StyleCop analysis failed. Please fix the errors and try again."
-            exit 1
-          fi
+          cd RentAdminApp
+          dotnet build --configuration Release
+          dotnet analyze --configuration Release
 
-      - name: Build the project
-        run: dotnet build  
-
+      - name: Check Code Style
+        run: |
+          cd RentAdminApp
+          dotnet style
