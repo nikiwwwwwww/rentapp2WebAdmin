@@ -28,7 +28,6 @@ jobs:
      
       - name: Check Code Style
         run: |
-          cd RentAdminApp
           dotnet style
           dotnet build --configuration Release
 
