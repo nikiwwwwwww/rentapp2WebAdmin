@@ -28,7 +28,7 @@ jobs:
 
       - name: Analyze code with StyleCop
         run: |
-          StyleCop.Analyz analyzers . --rule-set=stylecop.json --no-cache
+          StyleCop.Analyzers analyz . --rule-set=stylecop.json --no-cache
           if [[ $? -ne 0 ]]; then
             echo "StyleCop analysis failed. Please fix the errors and try again."
             exit 1
